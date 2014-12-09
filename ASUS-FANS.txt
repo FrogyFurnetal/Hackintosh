@@ -1,0 +1,55 @@
+#Maintained by: FrogyFurnetal for: ASUS A43SD
+#ASUS-FANS.txt
+
+#change in RFAN or GFAN method on last "Return (Local0)" to "Return (FANS)"
+#for real time sensore
+
+into device label SMCD remove_entry;
+into definitionblock code_regex . insert
+begin
+Device (SMCD)\n
+{\n
+	Name (_HID, "FAN00000")\n
+    Method (FAN0, 0, Serialized)\n
+    {\n
+		Store (B1B2 (\_SB.PCI0.SBRG.EC0.TH00, \_SB.PCI0.SBRG.EC0.TH01), Local0)\n
+        If (LEqual (Local0, 0xFF))\n
+        {\n
+            Store (Zero, Local0)\n
+        }\n
+        If (Local0)\n
+        {\n
+            Store (0x80, Local1)\n
+            Store (0x02, Local2)\n
+            Multiply (Local1, Local2, Local3)\n
+            Multiply (Local0, Local3, Local4)\n
+            Divide (0x03938700, Local4, Local5, Local6)\n
+            Multiply (Local6, 0x0A, Local6)\n
+            Store (Local6, Local0)\n
+        }\n
+        Return (Local0)\n
+    }\n
+    Method (TCPU, 0, NotSerialized)\n
+    {\n
+        Store (\_SB.PCI0.SBRG.EC0.ECPU, Local0)\n
+        If (LLessEqual (Local0, 40)) //Fan off <40C \n
+        {\n
+            \_SB.PCI0.SBRG.EC0.SFNV (One, Zero)\n
+            \_SB.PCI0.SBRG.EC0.SFNV (0x02, Zero)\n
+        }\n
+        Else\n
+        {\n
+            If (LOr (LGreater (Local0, 40), LLess (Local0, 70)))  //Fan automatic for >40C and <70C \n
+            {\n
+                \_SB.PCI0.SBRG.EC0.SFNV (Zero, Zero)\n
+            }\n
+        }\n
+        If (LGreaterEqual (Local0, 70)) //Fan MAX >70C \n
+        {\n
+            \_SB.PCI0.SBRG.EC0.SFNV (One, 0xFF)\n
+            \_SB.PCI0.SBRG.EC0.SFNV (0x02, 0xFF)\n
+        }\n
+        Return (Local0)\n
+    }\n
+}\n
+end;
