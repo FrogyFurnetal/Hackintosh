@@ -31,7 +31,7 @@ Method (RFAN, 1, NotSerialized)
 
 
 
-Method FAN0 bisa kalian ganti dengan re
+Method FAN0 bisa kalian ganti dengan
 Method (FAN0, 0, NotSerialized)
 {
     Store (\_SB.PCI0.SBRG.EC0.TACH (Zero), Local0)
