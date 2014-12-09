@@ -9,7 +9,7 @@ into definitionblock code_regex . insert
 begin
 Device (SMCD)\n
 {\n
-	Name (_HID, "FAN00000")\n
+    Name (_HID, "FAN00000")\n
     Method (FAN0, 0, Serialized)\n
     {\n
 		Store (B1B2 (\_SB.PCI0.SBRG.EC0.TH00, \_SB.PCI0.SBRG.EC0.TH01), Local0)\n
