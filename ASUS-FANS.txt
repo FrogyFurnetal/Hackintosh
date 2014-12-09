@@ -1,7 +1,7 @@
 #Maintained by: FrogyFurnetal for: ASUS A43SD
 #ASUS-FANS.txt
 
-#change in RFAN or GFAN method on last "Return (Local0)" to "Return (FANS)"
+#change in RFAN or GFAN method on last line "Return (Local0)" to "Return (FANS)"
 #for real time sensore
 
 into device label SMCD remove_entry;
