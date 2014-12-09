@@ -30,7 +30,7 @@ Device (SMCD)\n
                 \_SB.PCI0.SBRG.EC0.SFNV (Zero, Zero)\n
             }\n
         }\n
-        If (LGreaterEqual (Local0, 70)) //Fan MAX >70C \n
+        If (LGreaterEqual (Local0, 70)) //Fan MAX Speed >70C \n
         {\n
             \_SB.PCI0.SBRG.EC0.SFNV (One, 0xFF)\n
             \_SB.PCI0.SBRG.EC0.SFNV (0x02, 0xFF)\n
